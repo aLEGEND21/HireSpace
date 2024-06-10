@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema<IUser>({
     salt: { type: String, required: true },
     email: { type: String, required: true },
     role: { type: String, required: true },
-    internships: { type: [String], required: true },
+    internships: { type: [mongoose.Schema.Types.ObjectId], required: true },
 }, { timestamps: true });
 
 const User = mongoose.model<IUser>('User', userSchema);
