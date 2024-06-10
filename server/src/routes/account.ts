@@ -1,6 +1,6 @@
 import express from 'express';
 import crypto from 'crypto';
-import { createUser } from '../models/user';
+import { User, createUser } from '../models/user';
 
 const router = express.Router();
 
@@ -22,5 +22,21 @@ router.post('/account/register', async (req, res) => {
 
     res.status(200).send(user);
 })
+
+router.post('/account/login', async (req, res) => {
+    // Find the user
+    const user = await User.findOne({ username: req.body.username });
+    if (!user) {
+        return res.status(400).send('Invalid username or password');
+    }
+
+    // Verify the password
+    const hash = crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64, 'sha512').toString('hex');
+    if (hash !== user.password) {
+        return res.status(400).send('Invalid username or password');
+    }
+
+    res.status(200).send(user);
+});
 
 export { router as accountRouter };
