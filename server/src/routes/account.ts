@@ -1,11 +1,17 @@
 import express from 'express';
 import crypto from 'crypto';
 import passport from 'passport';
-import { createUser } from '../models/user';
+import { User, createUser } from '../models/user';
 
 const router = express.Router();
 
 router.post('/account/register', async (req, res) => {
+    // Prevent duplicate usernames
+    const existing = await User.findOne({ username: req.body.username });
+    if (existing) {
+        return res.status(400).send('Username already exists');
+    }
+
     // Salt and hash the password
     const salt = crypto.randomBytes(16).toString('hex');
     const hash = crypto.pbkdf2Sync(req.body.password, salt, 1000, 64, 'sha512').toString('hex');
