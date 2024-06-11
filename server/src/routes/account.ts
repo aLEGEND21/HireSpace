@@ -30,7 +30,7 @@ router.post('/account/register', async (req, res) => {
     res.status(200).send(user);
 });
 
-router.post('/account/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
+router.post('/account/login', passport.authenticate('local'), (req, res) => {
     res.status(200).send(req.user);
 });
 
