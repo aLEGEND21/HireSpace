@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import passport from 'passport';
 import passportLocal from 'passport-local';
 import session from 'express-session';
+import cors from 'cors';
 import { json } from 'body-parser';
 import { accountRouter } from './routes/account';
 import { profileRouter } from './routes/profile';
@@ -12,6 +13,7 @@ import { User } from './models/user';
 const LocalStrategy = passportLocal.Strategy;
 
 const app = express();
+app.use(cors());
 app.use(json());
 app.use(session({
   secret: 'secret', // Change this to a random string
