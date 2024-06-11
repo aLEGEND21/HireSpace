@@ -6,6 +6,7 @@ import passportLocal from 'passport-local';
 import session from 'express-session';
 import { json } from 'body-parser';
 import { accountRouter } from './routes/account';
+import { profileRouter } from './routes/profile';
 import { User } from './models/user';
 
 const LocalStrategy = passportLocal.Strategy;
@@ -19,6 +20,7 @@ app.use(session({
 }));
 app.use(passport.session());
 app.use(accountRouter);
+app.use(profileRouter);
 
 // Configure passport-local to use the MongoDB datbase when authenticating users
 passport.use(new LocalStrategy(async (username, password, done) => {
