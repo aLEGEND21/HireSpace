@@ -1,7 +1,7 @@
 import express from 'express';
 import crypto from 'crypto';
 import passport from 'passport';
-import { User, createUser } from '../models/user';
+import { createUser } from '../models/user';
 
 const router = express.Router();
 
@@ -26,6 +26,15 @@ router.post('/account/register', async (req, res) => {
 
 router.post('/account/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
     res.status(200).send(req.user);
+});
+
+router.get('/account/logout', (req, res) => {
+    req.logout(function (err) {
+        if (err) {
+            return res.status(500).send('Failed to log out');
+        }
+    });
+    res.status(200).send('Logged out');
 });
 
 export { router as accountRouter };
