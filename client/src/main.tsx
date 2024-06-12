@@ -6,6 +6,7 @@ import Root from "./routes/root";
 import Register from "./routes/register";
 import Login from "./routes/login";
 import Logout from "./routes/logout";
+import Submission from "./routes/submission";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/logout",
     element: <Logout />,
+  },
+  {
+    path: "/internship/submit",
+    element: <Submission />,
   },
 ]);
 
