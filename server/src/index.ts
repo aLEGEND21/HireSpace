@@ -13,7 +13,10 @@ import { User } from './models/user';
 const LocalStrategy = passportLocal.Strategy;
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // Change this to the URL of your frontend
+  credentials: true,
+}));
 app.use(json());
 app.use(session({
   secret: 'secret', // Change this to a random string
