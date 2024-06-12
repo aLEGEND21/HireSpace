@@ -31,7 +31,7 @@ function Register() {
         username,
         email,
         password,
-        role,
+        roles: [role],
       }),
     }).then((res) => {
       if (res.status === 200) {

@@ -22,7 +22,7 @@ router.post('/account/register', async (req, res) => {
         password: hash,
         salt: salt,
         email: req.body.email,
-        role: req.body.role,
+        roles: req.body.roles,
         internships: []
     });
     await user.save();

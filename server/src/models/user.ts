@@ -5,7 +5,7 @@ interface IUser {
     password: string;
     salt: string;
     email: string;
-    role: string;
+    roles: string[];
     internships: mongoose.Types.ObjectId[];
 }
 
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema<IUser>({
     password: { type: String, required: true },
     salt: { type: String, required: true },
     email: { type: String, required: true },
-    role: { type: String, required: true },
+    roles: { type: [String], required: true },
     internships: { type: [mongoose.Schema.Types.ObjectId], required: true },
 }, { timestamps: true });
 
