@@ -10,6 +10,7 @@ interface IInternship {
     endDate: Date;
     hoursPerWeek: number;
     hourlyRate: number;
+    applicationUrl: string;
     approved: boolean;
     creator: mongoose.Types.ObjectId;
 }
@@ -24,6 +25,7 @@ const internshipSchema = new mongoose.Schema<IInternship>({
     endDate: { type: Date, required: false },
     hoursPerWeek: { type: Number, required: true },
     hourlyRate: { type: Number, required: true },
+    applicationUrl: { type: String, required: true },
     approved: { type: Boolean, required: true },
     creator: { type: mongoose.Schema.Types.ObjectId, required: true },
 }, { timestamps: true });
