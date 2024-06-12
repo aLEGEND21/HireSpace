@@ -1,5 +1,6 @@
 import express from 'express';
-import { createInternship } from '../models/internship';
+import { Types } from 'mongoose';
+import { createInternship, Internship } from '../models/internship';
 
 const router = express.Router();
 
@@ -26,6 +27,21 @@ router.post('/internship', async (req, res) => {
         creator: req.user._id,
     });
     await internship.save();
+
+    res.status(200).send(internship);
+});
+
+router.get('/internship/:id', async (req, res) => {
+    // Validate the ID so it doesn't crash the server if it's invalid
+    if (!Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).send('Invalid ID');
+    }
+
+    // Find the internship
+    const internship = await Internship.findOne({ _id: req.params.id });
+    if (!internship) {
+        return res.status(404).send('Internship not found');
+    }
 
     res.status(200).send(internship);
 });
