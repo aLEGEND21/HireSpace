@@ -7,6 +7,7 @@ import Register from "./routes/register";
 import Login from "./routes/login";
 import Logout from "./routes/logout";
 import Submission from "./routes/submission";
+import Approval from "./routes/approval";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/internship/submit",
     element: <Submission />,
+  },
+  {
+    path: "/internship/approve/:id",
+    element: <Approval />,
   },
 ]);
 
