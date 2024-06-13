@@ -10,6 +10,7 @@ import Submission from "./routes/submission";
 import Approval from "./routes/approval";
 import View from "./routes/view";
 import Search from "./routes/search";
+import PendingApproval from "./routes/pendingApproval";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "/search",
     element: <Search />,
+  },
+  {
+    path: "/internships/pending",
+    element: <PendingApproval />,
   },
 ]);
 
