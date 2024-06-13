@@ -31,6 +31,11 @@ router.post('/internship', async (req, res) => {
     res.status(200).send(internship);
 });
 
+router.get('/internships', async (req, res) => {
+    const internships = await Internship.find({});
+    res.status(200).send(internships);
+});
+
 router.get('/internship/:id', async (req, res) => {
     // Validate the ID so it doesn't crash the server if it's invalid
     if (!Types.ObjectId.isValid(req.params.id)) {
