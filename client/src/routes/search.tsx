@@ -13,8 +13,9 @@ function Search() {
     }).then((res) => {
       if (res.status === 200) {
         res.json().then((data) => {
-          setInternships(data);
-          setVisibleInternships(data);
+          setInternships(
+            data.filter((internship: any) => internship.approved === true)
+          );
         });
       }
     });
@@ -46,7 +47,7 @@ function Search() {
       });
     }
     setVisibleInternships(filteredInternships);
-  }, [searchQuery, filterQuery]);
+  }, [internships, searchQuery, filterQuery]);
 
   return (
     <div className="container mx-auto">
