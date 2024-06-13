@@ -9,6 +9,7 @@ import Logout from "./routes/logout";
 import Submission from "./routes/submission";
 import Approval from "./routes/approval";
 import View from "./routes/view";
+import Search from "./routes/search";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/internship/view/:id",
     element: <View />,
+  },
+  {
+    path: "/search",
+    element: <Search />,
   },
 ]);
 
