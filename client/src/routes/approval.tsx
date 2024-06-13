@@ -69,6 +69,12 @@ function Approval() {
         {internship?.hoursPerWeek} hours per week @ ${internship?.hourlyRate}
         /hour
       </p>
+      <p className="mt-5">
+        Application URL:{" "}
+        <a href={internship?.applicationUrl} className="text-blue-500">
+          {internship?.applicationUrl}
+        </a>
+      </p>
       <p className="mt-5">Posted by: {creator?.username}</p>
       <button
         className="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
