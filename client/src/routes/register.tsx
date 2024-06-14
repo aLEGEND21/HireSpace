@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function Register() {
   const navigate = useNavigate();
@@ -7,7 +8,6 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("student");
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -31,7 +31,6 @@ function Register() {
         username,
         email,
         password,
-        roles: [role],
       }),
     }).then((res) => {
       if (res.status === 200) {
@@ -45,60 +44,67 @@ function Register() {
   }
 
   return (
-    <div className="container mx-auto mt-5">
-      <h1 className="text-3xl font-bold">Register</h1>
-      <form className="mt-5">
-        <span className="">Username</span>
-        <input
-          type="text"
-          className="block w-full border border-gray-300 rounded-md mt-1"
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
-        />
-        <span className="mt-5">Email</span>
-        <input
-          type="email"
-          className="block w-full border border-gray-300 rounded-md mt-1"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-        <span className="mt-5">Password</span>
-        <input
-          type="password"
-          className="block w-full border border-gray-300 rounded-md mt-1"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <span className="mt-5">Confirm Password</span>
-        <input
-          type="password"
-          className="block w-full border border-gray-300 rounded-md mt-1"
-          onChange={(e) => {
-            setConfirmPassword(e.target.value);
-          }}
-        />
-        <span className="mt-5">Account Type</span>
-        <select
-          className="block w-full border border-gray-300 rounded-md mt-1"
-          onChange={(e) => {
-            setRole(e.target.value);
-          }}
-        >
-          <option value="student">Student</option>
-          <option value="employer">Employer</option>
-        </select>
-        <input
-          type="submit"
-          className="block w-full bg-blue-500 text-white rounded-md mt-5 p-2"
-          value="Register"
-          onClick={(e) => {
-            handleSubmit(e);
-          }}
-        />
-      </form>
+    <div>
+      <Navbar />
+      <div className="container mx-auto max-w-96">
+        <h1 className="text-5xl font-bold text-center mt-10">Register</h1>
+        <form className="mt-5">
+          <div className="mt-5">
+            <span className="font-semibold">Username</span>
+            <input
+              type="text"
+              className="block w-full border border-gray-300 rounded-md mt-1 py-2 px-3"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mt-5">
+            <span className="font-semibold">Email</span>
+            <input
+              type="email"
+              className="block w-full border border-gray-300 rounded-md mt-1 py-2 px-3"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mt-3 mb-5">
+            <span className="font-semibold">Password</span>
+            <input
+              type="password"
+              className="block w-full border border-gray-300 rounded-md mt-1 py-2 px-3"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mt-3 mb-5">
+            <span className="font-semibold">Confirm Password</span>
+            <input
+              type="password"
+              className="block w-full border border-gray-300 rounded-md mt-1 py-2 px-3"
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
+            />
+          </div>
+          <input
+            type="submit"
+            className="block w-full bg-black text-white rounded-md p-3"
+            value="Register"
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
+          />
+        </form>
+        <p className="text-center mt-5">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-500">
+            Log in
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }
