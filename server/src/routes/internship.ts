@@ -79,6 +79,35 @@ router.patch('/internship/:id/approve', async (req, res) => {
     await internship.save();
 
     res.status(200).send(internship);
-})
+});
+
+router.delete('/internship/:id/reject', async (req, res) => {
+    // Check if the user is authenticated
+    if (!req.isAuthenticated()) {
+        return res.status(401).send('Not authenticated');
+    }
+
+    // Check if the user has moderator permissions
+    // @ts-ignore - roles always exists on the User object despite TypeScript not recognizing it
+    if (!req.user?.roles.includes('moderator')) {
+        return res.status(403).send('Not authorized');
+    }
+
+    // Validate the ID so it doesn't crash the server if it's invalid
+    if (!Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).send('Invalid ID');
+    }
+
+    // Find the internship
+    const internship = await Internship.findOne({ _id: req.params.id });
+    if (!internship) {
+        return res.status(404).send('Internship not found');
+    }
+
+    // Reject the internship
+    await internship.deleteOne();
+
+    res.status(200).send("Internship rejected");
+});
 
 export { router as internshipRouter };
