@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import ApprovalSummary from "../components/ApprovalSummary";
 
 function PendingApproval() {
   const [internships, setInternships] = useState<any[]>([]);
+  const [users, setUsers] = useState<{ [key: string]: any }>({});
 
   // Fetch the internships from the backend
   useEffect(() => {
@@ -19,27 +22,47 @@ function PendingApproval() {
     });
   }, []);
 
+  // Fetch the users from the backend
+  useEffect(() => {
+    internships.forEach((internship) => {
+      fetch(`http://localhost:3000/profile/${internship.creator}`, {
+        credentials: "include",
+        mode: "cors",
+      }).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            setUsers((prev) => ({ ...prev, [internship.creator]: data }));
+          });
+        }
+      });
+    });
+  }, [internships]);
+
   return (
-    <div className="container mx-auto">
-      <h1 className="text-3xl font-bold">Internships Pending Approval</h1>
-      {internships.map((internship) => (
-        <div key={internship._id} className="border rounded p-4 my-4">
-          <a href={`/internship/approve/${internship._id}`}>
-            <h2 className="text-xl font-bold">{internship.title}</h2>
-            <p>{internship.description}</p>
-            <div className="my-2">
-              {internship.tags.map((tag: any) => (
-                <span
-                  key={tag}
-                  className="bg-blue-200 text-gray-800 rounded px-2 py-1 text-sm mr-2"
-                >
-                  #{tag.charAt(0).toUpperCase() + tag.slice(1)}
-                </span>
-              ))}
-            </div>
-          </a>
+    <div>
+      <Navbar />
+      <div className="container mx-auto mt-10">
+        <h1 className="text-3xl font-semibold text-center">
+          Internships Pending Approval
+        </h1>
+        <p className="text-center text-gray-600 mt-2">
+          Showing {internships.length} internships
+        </p>
+        <div className="my-5">
+          {internships.map((internship) => (
+            <ApprovalSummary
+              key={internship._id}
+              internship={internship}
+              creator={users[internship.creator]}
+            />
+          ))}
+          {internships.length === 0 && (
+            <p className="text-xl text-center text-gray-600 mt-5">
+              No internships pending approval
+            </p>
+          )}
         </div>
-      ))}
+      </div>
     </div>
   );
 }
