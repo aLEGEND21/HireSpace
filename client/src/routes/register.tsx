@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
 
 function Register() {
   const navigate = useNavigate();
+  const session = useContext(SessionContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  // Prevent logged in users from accessing this page
+  useEffect(() => {
+    if (session.username !== null) {
+      navigate("/");
+    }
+  }, [session]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

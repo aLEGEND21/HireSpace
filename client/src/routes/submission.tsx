@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SessionContext } from "../contexts";
 
 function Submission() {
+  const navigate = useNavigate();
+  const session = useContext(SessionContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -11,6 +15,13 @@ function Submission() {
   const [hoursPerWeek, setHoursPerWeek] = useState("");
   const [hourlyRate, setHourlyRate] = useState("");
   const [applicationUrl, setApplicationUrl] = useState("");
+
+  // Prevent logged out users from accessing this page
+  useEffect(() => {
+    if (session.username === null) {
+      navigate("/login");
+    }
+  }, [session]);
 
   function handleSubmit() {
     fetch("http://localhost:3000/internship", {

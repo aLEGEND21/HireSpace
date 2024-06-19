@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { SessionContext, SessionDispatchContext } from "../contexts";
 import Navbar from "../components/Navbar";
 
 function Login() {
   const navigate = useNavigate();
+  const session = useContext(SessionContext);
+  const sessionDispatch = useContext(SessionDispatchContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  // Prevent logged in users from accessing this page
+  useEffect(() => {
+    if (session.username !== null) {
+      navigate("/");
+    }
+  }, [session]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,6 +33,16 @@ function Login() {
       }),
     }).then((res) => {
       if (res.status === 200) {
+        res.json().then((data) => {
+          sessionDispatch!({
+            type: "login",
+            payload: {
+              username: data.username,
+              id: data._id,
+              roles: data.roles,
+            },
+          });
+        });
         navigate("/");
       } else {
         res.text().then((msg) => {

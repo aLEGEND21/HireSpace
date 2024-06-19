@@ -1,10 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
 import ApprovalSummary from "../components/ApprovalSummary";
 
 function PendingApproval() {
+  const navigate = useNavigate();
+  const session = useContext(SessionContext);
   const [internships, setInternships] = useState<any[]>([]);
   const [users, setUsers] = useState<{ [key: string]: any }>({});
+
+  // Ensure only moderators can access this page
+  useEffect(() => {
+    if (!session.roles.includes("moderator")) {
+      navigate("/");
+    }
+  }, [session]);
 
   // Fetch the internships from the backend
   useEffect(() => {

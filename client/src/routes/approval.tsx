@@ -1,9 +1,11 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
 
 function Approval() {
   const navigate = useNavigate();
+  const session = useContext(SessionContext);
   const { id } = useParams<{ id: string }>();
   const [internship, setInternship] = useState<any>(null);
   const [creator, setCreator] = useState<any>(null);
@@ -23,6 +25,13 @@ function Approval() {
     undefined,
     fmtOptions
   );
+
+  // Ensure only moderators can access this page
+  useEffect(() => {
+    if (!session.roles.includes("moderator")) {
+      navigate("/");
+    }
+  }, [session]);
 
   useEffect(() => {
     fetch(`http://localhost:3000/internship/${id}`)
