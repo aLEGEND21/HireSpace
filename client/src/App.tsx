@@ -11,7 +11,6 @@ import Logout from "./routes/logout";
 import Submission from "./routes/submission";
 import Approval from "./routes/approval";
 import View from "./routes/view";
-import Search from "./routes/search";
 import PendingApproval from "./routes/pendingApproval";
 
 function App() {
@@ -43,10 +42,6 @@ function App() {
     {
       path: "/internship/view/:id",
       element: <View />,
-    },
-    {
-      path: "/search",
-      element: <Search />,
     },
     {
       path: "/internships/pending",
