@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
+import tagOptions from "../tags";
 
 const MAX_TAGS = 2;
 
@@ -181,48 +182,7 @@ function Submission() {
               <span className="font-semibold">Tags</span>
               <Select
                 isMulti
-                options={[
-                  {
-                    value: "Software Engineering",
-                    label: "Software Engineering",
-                  },
-                  {
-                    value: "Data Science",
-                    label: "Data Science",
-                  },
-                  {
-                    value: "Product Management",
-                    label: "Product Management",
-                  },
-                  {
-                    value: "Marketing",
-                    label: "Marketing",
-                  },
-                  {
-                    value: "Finance",
-                    label: "Finance",
-                  },
-                  {
-                    value: "Human Resources",
-                    label: "Human Resources",
-                  },
-                  {
-                    value: "Operations",
-                    label: "Operations",
-                  },
-                  {
-                    value: "Sales",
-                    label: "Sales",
-                  },
-                  {
-                    value: "Customer Support",
-                    label: "Customer Support",
-                  },
-                  {
-                    value: "Design",
-                    label: "Design",
-                  },
-                ]}
+                options={tagOptions.map((tag) => ({ value: tag, label: tag }))}
                 className="block w-full rounded-md mt-1"
                 classNames={{
                   control: () => {

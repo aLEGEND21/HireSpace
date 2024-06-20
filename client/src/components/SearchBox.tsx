@@ -1,3 +1,5 @@
+import tagOptions from "../tags";
+
 interface SearchBoxProps {
   setSearchQuery: (searchQuery: string) => void;
   setFilterQuery: (filterQuery: string) => void;
@@ -18,11 +20,11 @@ function SearchBox({ setSearchQuery, setFilterQuery }: SearchBoxProps) {
           onChange={(e) => setFilterQuery(e.target.value)}
         >
           <option value="">All Tags</option>
-          <option value="software">Software</option>
-          <option value="engineering">Engineering</option>
-          <option value="marketing">Marketing</option>
-          <option value="product">Product</option>
-          <option value="sales">Sales</option>
+          {tagOptions.map((tag) => (
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
+          ))}
         </select>
       </div>
     </div>
