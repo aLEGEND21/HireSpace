@@ -35,7 +35,7 @@ function ApprovalSummary({ internship, creator }: InternshipSummaryProps) {
               key={tag}
               className="bg-black text-white rounded-lg px-3 py-2 text-sm me-1 whitespace-nowrap"
             >
-              # {tag.charAt(0).toUpperCase() + tag.substring(1).toLowerCase()}
+              # {tag}
             </span>
           ))}
         </div>
