@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionContext, SessionDispatchContext } from "./contexts";
@@ -62,6 +62,36 @@ function App() {
     id: SessionStore.id,
     roles: SessionStore.roles,
   });
+
+  // Refresh the session when the app loads
+  useEffect(() => {
+    fetch("http://localhost:3000/profile/@me", {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        sessionDispatch({
+          type: "refresh",
+          payload: {
+            loggedIn: true,
+            username: data.username,
+            id: data._id,
+            roles: data.roles,
+          },
+        });
+      })
+      .catch(() => {
+        sessionDispatch({
+          type: "refresh",
+          payload: {
+            loggedIn: false,
+            username: null,
+            id: null,
+            roles: [],
+          },
+        });
+      });
+  }, []);
 
   return (
     <SessionDispatchContext.Provider value={sessionDispatch}>

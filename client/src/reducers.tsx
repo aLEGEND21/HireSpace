@@ -36,6 +36,22 @@ let sessionReducer = (state: SessionState, action: SessionAction) => {
         id: SessionStore.id,
         roles: SessionStore.roles,
       };
+    case "refresh":
+      if (action.payload.loggedIn) {
+        SessionStore.loggedIn = true;
+        SessionStore.username = action.payload.username;
+        SessionStore.id = action.payload.id;
+        SessionStore.roles = action.payload.roles;
+      } else {
+        SessionStore.clear();
+      }
+      return {
+        ...state,
+        loggedIn: SessionStore.loggedIn,
+        username: SessionStore.username,
+        id: SessionStore.id,
+        roles: SessionStore.roles,
+      };
     default:
       return {
         ...state,
