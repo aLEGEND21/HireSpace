@@ -1,4 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
+import Fuse from "fuse.js";
 import Navbar from "../components/Navbar";
 import InternshipSummary from "../components/InternshipSummary";
 import SearchBox from "../components/SearchBox";
@@ -37,22 +38,23 @@ function Root() {
   }, []);
 
   useEffect(() => {
-    let filteredInternships = internships.filter((internship) => {
-      return (
-        internship.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        internship.description
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase()) ||
-        internship.companyName
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase()) ||
-        internship.tags
-          .join(" ")
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase()) ||
-        internship.location.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    });
+    let filteredInternships = internships;
+
+    // Use Fuse.js to complete a fuzzy search
+    if (searchQuery.length > 0) {
+      const fuse = new Fuse(internships, {
+        isCaseSensitive: false,
+        findAllMatches: true,
+        includeScore: true,
+        keys: ["title", "description", "companyName", "tags", "location"],
+        threshold: 0.4, // Lower the threshold to increase the strictness of the search
+      });
+      const results = fuse.search(searchQuery);
+      console.log(results);
+      filteredInternships = results.map((result) => result.item);
+    }
+
+    // Further filter the results by tags
     if (filterQuery) {
       filteredInternships = filteredInternships.filter((internship) => {
         return internship.tags
@@ -61,6 +63,7 @@ function Root() {
           .includes(filterQuery.toLowerCase());
       });
     }
+
     setVisibleInternships(filteredInternships);
     setSelectedInternship(filteredInternships[0] || null);
   }, [internships, searchQuery, filterQuery]);
