@@ -154,15 +154,17 @@ function Approval() {
               </Fragment>
             ))}
         </p>
-        <a
-          href={internship?.applicationUrl}
-          target="_blank"
-          className="flex justify-center"
-        >
-          <button className="bg-black text-white rounded-lg py-3 font-semibold mt-5 w-48">
-            Apply
-          </button>
-        </a>
+
+        <p className="text-center text-xl font-bold my-6">
+          Application URL:{" "}
+          <a
+            href={internship?.applicationUrl}
+            target="_blank"
+            className="text-blue-500 text-underline"
+          >
+            {internship?.applicationUrl}
+          </a>
+        </p>
       </div>
       <ToastContainer position="top-center" />
     </div>
