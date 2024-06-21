@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { SessionContext } from "../contexts";
-import { MdKeyboardArrowDown } from "react-icons/md";
 
 interface NavbarProps {
   searchBox?: JSX.Element;
@@ -34,8 +33,7 @@ function Navbar({ searchBox }: NavbarProps) {
                     className="bg-black text-white rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                   >
-                    Actions
-                    <MdKeyboardArrowDown className="text-xl ms-2 mt-0.5" />
+                    Actions <span className="text-xs ms-2 mt-0.5">▼</span>
                   </button>
 
                   {dropdownOpen && (
