@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
 
@@ -23,11 +24,9 @@ function Register() {
 
     // Validate the password
     if (password !== confirmPassword) {
-      console.log("Passwords do not match");
-      return;
+      return toast.error("Passwords do not match");
     } else if (password.length < 8) {
-      console.log("Password must be at least 8 characters long");
-      return;
+      return toast.error("Password must be at least 8 characters long");
     }
 
     fetch("http://localhost:3000/account/register", {
@@ -41,15 +40,19 @@ function Register() {
         email,
         password,
       }),
-    }).then((res) => {
-      if (res.status === 200) {
-        navigate("/login");
-      } else {
-        res.text().then((msg) => {
-          console.log(msg);
-        });
-      }
-    });
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          navigate("/login");
+        } else if (res.status === 400) {
+          toast.error("Username already exists");
+        } else {
+          toast.error("An error occurred");
+        }
+      })
+      .catch(() => {
+        toast.error("An error occurred");
+      });
   }
 
   return (
@@ -114,6 +117,7 @@ function Register() {
           </Link>
         </p>
       </div>
+      <ToastContainer position="top-center" />
     </div>
   );
 }

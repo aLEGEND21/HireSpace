@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { ToastContainer, toast } from "react-toastify";
 import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
 import tagOptions from "../tags";
@@ -29,6 +30,47 @@ function Submission() {
   }, [session]);
 
   const handleSubmit = () => {
+    // Ensure all fields are filled in
+    if (
+      title === "" ||
+      description === "" ||
+      companyName === "" ||
+      tags.length === 0 ||
+      location === "" ||
+      startDate === "" ||
+      endDate === "" ||
+      hoursPerWeek === "" ||
+      hourlyRate === "" ||
+      applicationUrl === ""
+    ) {
+      return toast.error("Please fill in all fields");
+    }
+
+    // Ensure the start date is before the end date
+    if (new Date(startDate) >= new Date(endDate)) {
+      return toast.error("Start date must be before end date");
+    }
+
+    // Ensure the hourly rate and hours per week are positive
+    if (parseFloat(hourlyRate) < 0) {
+      return toast.error("Hourly rate must be 0 or positive");
+    } else if (parseFloat(hoursPerWeek) <= 0) {
+      return toast.error("Hours per week must be positive");
+    }
+
+    // Validate the application URL
+    try {
+      new URL(applicationUrl);
+      if (
+        !applicationUrl.startsWith("http://") &&
+        !applicationUrl.startsWith("https://")
+      ) {
+        throw new Error();
+      }
+    } catch {
+      return toast.error("Invalid application URL");
+    }
+
     fetch("http://localhost:3000/internship", {
       method: "POST",
       headers: {
@@ -48,12 +90,18 @@ function Submission() {
       }),
       credentials: "include",
       mode: "cors",
-    }).then((res) => {
-      if (res.status === 200) {
-        alert("Internship submitted successfully!");
-        navigate("/");
-      }
-    });
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Internship submitted successfully!");
+          navigate("/");
+        } else {
+          toast.error("An error occurred");
+        }
+      })
+      .catch(() => {
+        toast.error("An error occurred");
+      });
   };
 
   const handleClear = () => {
@@ -227,6 +275,7 @@ function Submission() {
           </div>
         </div>
       </div>
+      <ToastContainer position="top-center" />
     </div>
   );
 }

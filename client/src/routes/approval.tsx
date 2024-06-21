@@ -1,5 +1,6 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
 
@@ -35,31 +36,38 @@ function Approval() {
 
   useEffect(() => {
     fetch(`http://localhost:3000/internship/${id}`)
-      .then((res) => {
+      /*.then(async (res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch internship data");
+          
         } else {
           return res.json();
         }
       })
       .then((data) => {
         setInternship(data);
+      });*/
+      .then(async (res) => {
+        if (res.ok) {
+          const data = await res.json();
+          setInternship(data);
+        } else {
+          toast.error("Failed to fetch internship data");
+        }
       });
   }, [id]);
 
   useEffect(() => {
     if (internship?.creator) {
-      fetch(`http://localhost:3000/profile/${internship.creator}`)
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Failed to fetch internship creator");
+      fetch(`http://localhost:3000/profile/${internship.creator}`).then(
+        async (res) => {
+          if (res.ok) {
+            const data = await res.json();
+            setCreator(data);
           } else {
-            return res.json();
+            toast.error("Failed to fetch internship creator data");
           }
-        })
-        .then((data) => {
-          setCreator(data);
-        });
+        }
+      );
     }
   }, [internship?.creator]);
 
@@ -156,6 +164,7 @@ function Approval() {
           </button>
         </a>
       </div>
+      <ToastContainer position="top-center" />
     </div>
   );
 }

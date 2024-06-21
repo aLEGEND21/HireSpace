@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import { SessionContext, SessionDispatchContext } from "../contexts";
 import Navbar from "../components/Navbar";
 
@@ -20,6 +21,10 @@ function Login() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    if (username === "" || password === "") {
+      return toast.error("Please fill in all fields");
+    }
+
     fetch("http://localhost:3000/account/login", {
       method: "POST",
       headers: {
@@ -31,25 +36,29 @@ function Login() {
         username,
         password,
       }),
-    }).then((res) => {
-      if (res.status === 200) {
-        res.json().then((data) => {
-          sessionDispatch!({
-            type: "login",
-            payload: {
-              username: data.username,
-              id: data._id,
-              roles: data.roles,
-            },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            sessionDispatch!({
+              type: "login",
+              payload: {
+                username: data.username,
+                id: data._id,
+                roles: data.roles,
+              },
+            });
           });
-        });
-        navigate("/");
-      } else {
-        res.text().then((msg) => {
-          console.log(msg);
-        });
-      }
-    });
+          navigate("/");
+        } else if (res.status === 401) {
+          toast.error("Invalid username or password");
+        } else {
+          toast.error("An error occurred");
+        }
+      })
+      .catch(() => {
+        toast.error("An error occurred");
+      });
   }
 
   return (
@@ -94,6 +103,7 @@ function Login() {
           </Link>
         </p>
       </div>
+      <ToastContainer position="top-center" />
     </div>
   );
 }
