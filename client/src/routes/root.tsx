@@ -76,14 +76,15 @@ function Root() {
         }
       />
       <div className="grid grid-cols-12 flex-1 overflow-auto">
-        <div className="col-span-3 border ps-14 pe-10 overflow-y-auto">
-          <p className="text-gray-600 mt-5 -mb-3">
+        <div className="col-span-3 border overflow-y-auto">
+          <p className="text-gray-600 my-5 ps-14">
             Found {visibleInternships.length} relevant internships
           </p>
           {visibleInternships.map((internship) => (
             <InternshipSummary
               key={internship._id}
               internship={internship}
+              selectedInternship={selectedInternship}
               setSelectedInternship={setSelectedInternship}
             />
           ))}
