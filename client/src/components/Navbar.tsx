@@ -1,28 +1,42 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { SessionContext } from "../contexts";
+import logo from "../assets/Hirespace Logo.svg";
 
 interface NavbarProps {
   searchBox?: JSX.Element;
 }
 
+const logoStyle = {
+  filter: "brightness(0) invert(1)",
+};
+
 function Navbar({ searchBox }: NavbarProps) {
   const session = useContext(SessionContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  //<nav className="bg-white border-gray-200 border-b bg-gradient-to-r from-black from-10% via-white via-25% to-white">
+
   return (
-    <nav className="bg-white border-gray-200 border-b">
+    <nav className="border-gray-200 border-b bg-primary">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <div className="flex items-center">
-          <span className="self-center text-2xl font-semibold whitespace-nowrap me-16">
-            Internship Finder
-          </span>
+          <Link to="/" className="flex text-white me-5">
+            <img
+              src={logo}
+              className="h-9 me-2 -mt-1 fill-white"
+              style={logoStyle}
+            />
+            <span className="self-center text-2xl font-semibold whitespace-nowrap me-16">
+              HireSpace
+            </span>
+          </Link>
           {searchBox}
         </div>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0">
             <li>
-              <Link to="/" className="block py-2 px-3 rounded">
+              <Link to="/" className="block py-2 px-3 rounded text-white">
                 Find Internships
               </Link>
             </li>
@@ -30,7 +44,7 @@ function Navbar({ searchBox }: NavbarProps) {
               {session.loggedIn ? (
                 <>
                   <button
-                    className="bg-black text-white rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                    className="bg-gray-200 text-primary font-bold rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                   >
                     Actions <span className="text-xs ms-2 mt-0.5">▼</span>
@@ -70,7 +84,7 @@ function Navbar({ searchBox }: NavbarProps) {
                 </>
               ) : (
                 <Link to="/login">
-                  <button className="bg-black text-white rounded-lg px-5 py-2">
+                  <button className="bg-gray-200 text-primary rounded-lg px-5 py-2">
                     Login
                   </button>
                 </Link>

@@ -107,7 +107,7 @@ function Root() {
             {selectedInternship?.hoursPerWeek} hours / week
           </p>
           <a href={selectedInternship?.applicationUrl} target="_blank">
-            <button className="bg-black text-white rounded-lg px-9 py-4 mt-4 font-semibold">
+            <button className="bg-primary text-white rounded-lg px-9 py-4 mt-4 font-semibold">
               Apply
             </button>
           </a>

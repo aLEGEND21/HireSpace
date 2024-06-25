@@ -33,7 +33,7 @@ function ApprovalSummary({ internship, creator }: InternshipSummaryProps) {
           {internship.tags.map((tag: string) => (
             <span
               key={tag}
-              className="bg-black text-white rounded-lg px-3 py-2 text-sm me-1 whitespace-nowrap"
+              className="bg-primary text-white rounded-lg px-3 py-2 text-sm me-1 whitespace-nowrap"
             >
               # {tag}
             </span>

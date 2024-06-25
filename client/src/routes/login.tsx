@@ -89,7 +89,7 @@ function Login() {
           </div>
           <input
             type="submit"
-            className="block w-full bg-black text-white rounded-md p-3"
+            className="block w-full bg-primary text-white rounded-lg p-3"
             value="Log In"
             onClick={(e) => {
               handleSubmit(e);
@@ -98,7 +98,7 @@ function Login() {
         </form>
         <p className="text-center mt-5">
           Don't have an account?{" "}
-          <Link to="/register" className="text-blue-500">
+          <Link to="/register" className="text-primary font-semibold">
             Register
           </Link>
         </p>

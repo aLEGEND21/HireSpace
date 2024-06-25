@@ -103,7 +103,7 @@ function Register() {
           </div>
           <input
             type="submit"
-            className="block w-full bg-black text-white rounded-md p-3"
+            className="block w-full bg-primary text-white rounded-lg p-3"
             value="Register"
             onClick={(e) => {
               handleSubmit(e);
@@ -112,7 +112,7 @@ function Register() {
         </form>
         <p className="text-center mt-5">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-500">
+          <Link to="/login" className="text-primary font-semibold">
             Log in
           </Link>
         </p>

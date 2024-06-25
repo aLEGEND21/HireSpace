@@ -128,13 +128,13 @@ function Approval() {
         </p>
         <div className="my-4 mx-auto grid grid-cols-2 gap-4 content-center w-96">
           <button
-            className="bg-black text-white rounded-lg py-3 font-semibold"
+            className="bg-primary text-white rounded-lg py-3 font-semibold"
             onClick={handleApproval}
           >
             Approve
           </button>
           <button
-            className="border border-black rounded-lg py-3 font-semibold"
+            className="border border-primary rounded-lg py-3 font-semibold"
             onClick={handleRejection}
           >
             Reject
