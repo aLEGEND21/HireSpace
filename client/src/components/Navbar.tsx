@@ -14,8 +14,7 @@ const logoStyle = {
 function Navbar({ searchBox }: NavbarProps) {
   const session = useContext(SessionContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  //<nav className="bg-white border-gray-200 border-b bg-gradient-to-r from-black from-10% via-white via-25% to-white">
+  const [navbarOpen, setNavbarOpen] = useState(false);
 
   return (
     <nav className="border-gray-200 border-b bg-primary">
@@ -33,7 +32,72 @@ function Navbar({ searchBox }: NavbarProps) {
           </Link>
           {searchBox}
         </div>
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
+        {/* Navbar expansion toggle for small screens */}
+        <button
+          onClick={() => setNavbarOpen(!navbarOpen)}
+          className="p-2 w-10 h-10 justify-center text-white md:hidden"
+        >
+          <svg
+            className="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M1 1h15M1 7h15M1 13h15"
+            />
+          </svg>
+        </button>
+        {/* Small screen navbar contents */}
+        <div className={`${navbarOpen ? "" : "hidden"} w-full`}>
+          <ul className="font-medium text-gray-200 flex flex-col ps-12">
+            <li>
+              <Link to="/" className="block py-2 px-3 rounded">
+                Find Internships
+              </Link>
+            </li>
+            {session.loggedIn ? (
+              <>
+                <li>
+                  <Link
+                    to="/internship/submit"
+                    className="block py-2 px-3 rounded"
+                  >
+                    Submit Internship
+                  </Link>
+                </li>
+                {session.roles.includes("moderator") && (
+                  <li>
+                    <Link
+                      to="/internships/pending"
+                      className="block py-2 px-3 rounded"
+                    >
+                      Pending Approval
+                    </Link>
+                  </li>
+                )}
+                <li>
+                  <Link to="/logout" className="block py-2 px-3 rounded">
+                    Log Out
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link to="/login" className="block py-2 px-3 rounded">
+                  Login
+                </Link>
+              </li>
+            )}
+          </ul>
+        </div>
+        {/* Large screen navbar contents */}
+        <div className="hidden md:block md:w-auto">
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0">
             <li>
               <Link to="/" className="block py-2 px-3 rounded text-white">
