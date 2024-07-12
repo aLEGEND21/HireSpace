@@ -52,14 +52,19 @@ function PendingApproval() {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto mt-10">
+      <div className="container px-6 mx-auto mt-10">
         <h1 className="text-3xl font-semibold text-center">
           Internships Pending Approval
         </h1>
         <p className="text-center text-gray-600 mt-2">
           Showing {internships.length} internships
         </p>
-        <div className="my-5">
+        {internships.length === 0 && (
+          <p className="text-xl text-center text-gray-600 mt-5">
+            No internships pending approval
+          </p>
+        )}
+        <div className="mt-5 divide-y">
           {internships.map((internship) => (
             <ApprovalSummary
               key={internship._id}
@@ -67,11 +72,6 @@ function PendingApproval() {
               creator={users[internship.creator]}
             />
           ))}
-          {internships.length === 0 && (
-            <p className="text-xl text-center text-gray-600 mt-5">
-              No internships pending approval
-            </p>
-          )}
         </div>
       </div>
     </div>
