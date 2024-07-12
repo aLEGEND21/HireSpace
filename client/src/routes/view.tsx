@@ -56,7 +56,7 @@ function View() {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto my-10">
+      <div className="container my-10 px-10 mx-auto">
         <h1 className="text-3xl text-center font-semibold">
           {internship?.title}
         </h1>
@@ -77,7 +77,7 @@ function View() {
         <h3 className="text-2xl font-semibold text-center mt-10">
           Internship Description
         </h3>
-        <p className="text-justify text-lg mt-2">
+        <p className="text-lg mt-2 text-justify">
           {/* Safely render newlines in the description */}
           {internship?.description
             .split("\n")
