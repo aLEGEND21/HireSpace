@@ -19,8 +19,8 @@ function Navbar({ searchBox }: NavbarProps) {
   return (
     <nav className="border-gray-200 border-b bg-primary">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <div className="flex items-center">
-          <Link to="/" className="flex text-white me-5">
+        <div className="flex grow items-center">
+          <Link to="/" className="flex text-white">
             <img
               src={logo}
               className="h-9 me-2 -mt-1 fill-white"
@@ -30,7 +30,7 @@ function Navbar({ searchBox }: NavbarProps) {
               HireSpace
             </span>
           </Link>
-          <div className="hidden lg:block">{searchBox}</div>
+          <div className="hidden w-full lg:block">{searchBox}</div>
         </div>
         {/* Navbar expansion toggle for small screens */}
         <button

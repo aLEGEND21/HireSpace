@@ -84,7 +84,7 @@ function Root() {
             setSearchQuery={setSearchQuery}
             setFilterQuery={setFilterQuery}
           />
-          <p className="text-gray-600 mt-4 text-center">
+          <p className="text-gray-600 mt-4 mb-1 text-center">
             Found {visibleInternships.length} relevant internships
           </p>
           <div className="divide-y">
