@@ -108,7 +108,7 @@ function Approval() {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto my-10">
+      <div className="container my-10 px-10 mx-auto">
         <h1 className="text-3xl text-center font-semibold">
           {internship?.title}
         </h1>
@@ -126,7 +126,7 @@ function Approval() {
           ${internship?.hourlyRate} / hour • {internship?.hoursPerWeek} hours /
           week
         </p>
-        <div className="my-4 mx-auto grid grid-cols-2 gap-4 content-center w-96">
+        <div className="my-4 mx-auto grid grid-cols-2 gap-4 content-center w-full md:w-96">
           <button
             className="bg-primary text-white rounded-lg py-3 font-semibold"
             onClick={handleApproval}
@@ -143,7 +143,7 @@ function Approval() {
         <h3 className="text-2xl font-semibold text-center mt-10">
           Internship Description
         </h3>
-        <p className="text-justify text-lg mt-2">
+        <p className="lg:text-justify text-lg mt-2">
           {/* Safely render newlines in the description */}
           {internship?.description
             .split("\n")
@@ -154,13 +154,12 @@ function Approval() {
               </Fragment>
             ))}
         </p>
-
         <p className="text-center text-xl font-bold my-6">
           Application URL:{" "}
           <a
             href={internship?.applicationUrl}
             target="_blank"
-            className="text-blue-500 text-underline"
+            className="text-blue-500 text-underline inline-block break-all"
           >
             {internship?.applicationUrl}
           </a>
