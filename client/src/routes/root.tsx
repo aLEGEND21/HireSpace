@@ -100,7 +100,7 @@ function Root() {
         </div>
         {/* Large screen sidebar */}
         <div className="hidden col-span-3 border overflow-y-auto lg:block">
-          <p className="text-gray-600 my-5 ps-14">
+          <p className="text-gray-600 my-5 ps-8 xl:ps-14">
             Found {visibleInternships.length} relevant internships
           </p>
           {visibleInternships.map((internship) => (
