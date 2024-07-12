@@ -30,12 +30,12 @@ function Navbar({ searchBox }: NavbarProps) {
               HireSpace
             </span>
           </Link>
-          {searchBox}
+          <div className="hidden lg:block">{searchBox}</div>
         </div>
         {/* Navbar expansion toggle for small screens */}
         <button
           onClick={() => setNavbarOpen(!navbarOpen)}
-          className="p-2 w-10 h-10 justify-center text-white md:hidden"
+          className="p-2 w-10 h-10 justify-center text-white lg:hidden"
         >
           <svg
             className="w-5 h-5"
@@ -97,7 +97,7 @@ function Navbar({ searchBox }: NavbarProps) {
           </ul>
         </div>
         {/* Large screen navbar contents */}
-        <div className="hidden md:block md:w-auto">
+        <div className="hidden lg:block lg:w-auto">
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0">
             <li>
               <Link to="/" className="block py-2 px-3 rounded text-white">
