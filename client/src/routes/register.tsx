@@ -58,7 +58,7 @@ function Register() {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto max-w-96">
+      <div className="container mx-auto max-w-80 md:max-w-96">
         <h1 className="text-5xl font-bold text-center mt-10">Register</h1>
         <form className="mt-5">
           <div className="mt-5">
