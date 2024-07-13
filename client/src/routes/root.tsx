@@ -50,7 +50,6 @@ function Root() {
         threshold: 0.4, // Lower the threshold to increase the strictness of the search
       });
       const results = fuse.search(searchQuery);
-      console.log(results);
       filteredInternships = results.map((result) => result.item);
     }
 
@@ -79,8 +78,29 @@ function Root() {
         }
       />
       <div className="grid grid-cols-12 flex-1 overflow-auto">
-        <div className="col-span-3 border overflow-y-auto">
-          <p className="text-gray-600 my-5 ps-14">
+        {/* Small screen page contents */}
+        <div className="lg:hidden w-lvw pt-5">
+          <SearchBox
+            setSearchQuery={setSearchQuery}
+            setFilterQuery={setFilterQuery}
+          />
+          <p className="text-gray-600 mt-4 mb-1 text-center">
+            Found {visibleInternships.length} relevant internships
+          </p>
+          <div className="divide-y">
+            {visibleInternships.map((internship) => (
+              <InternshipSummary
+                key={internship._id}
+                internship={internship}
+                selectedInternship={selectedInternship}
+                setSelectedInternship={setSelectedInternship}
+              />
+            ))}
+          </div>
+        </div>
+        {/* Large screen sidebar */}
+        <div className="hidden col-span-3 border overflow-y-auto lg:block">
+          <p className="text-gray-600 my-5 ps-8 xl:ps-14">
             Found {visibleInternships.length} relevant internships
           </p>
           {visibleInternships.map((internship) => (
@@ -92,7 +112,8 @@ function Root() {
             />
           ))}
         </div>
-        <div className="col-span-9 border px-16 py-10 overflow-auto">
+        {/* Large screen detailed internship contents */}
+        <div className="hidden col-span-9 border px-16 py-10 overflow-auto lg:block">
           <h1 className="text-4xl font-semibold">
             {selectedInternship?.title}
           </h1>

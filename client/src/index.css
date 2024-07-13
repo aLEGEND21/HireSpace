@@ -2,7 +2,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Make input placeholder bold (Tailwind.css: font-semibold) */
+/* Make input placeholder bold (Equivalent to Tailwind.css: font-semibold) */
 .placeholder-bold::placeholder {
     font-weight: 600;
 }

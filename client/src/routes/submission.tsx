@@ -128,7 +128,7 @@ function Submission() {
           <h1 className="text-3xl font-semibold text-center">
             Submit an Internship
           </h1>
-          <div className="mt-2">
+          <div className="mt-4">
             <span className="font-semibold">Title</span>
             <input
               type="text"
@@ -140,7 +140,7 @@ function Submission() {
               value={title}
             />
           </div>
-          <div className="mt-2 grid grid-cols-2 gap-4">
+          <div className="mt-2 lg:grid lg:grid-cols-2 lg:gap-4">
             <div>
               <span className="font-semibold">Company</span>
               <input
@@ -153,7 +153,7 @@ function Submission() {
                 value={companyName}
               />
             </div>
-            <div>
+            <div className="mt-2 lg:mt-0">
               <span className="font-semibold">Location</span>
               <input
                 className="block w-full border border-gray-300 rounded-md mt-1 py-2 px-3 h-10"
@@ -165,7 +165,7 @@ function Submission() {
               />
             </div>
           </div>
-          <div className="mt-2 grid grid-cols-4 gap-4">
+          <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-2 lg:grid-cols-4">
             <div>
               <span className="font-semibold">Start Date</span>
               <input
@@ -213,7 +213,7 @@ function Submission() {
               />
             </div>
           </div>
-          <div className="mt-2 grid grid-cols-2 gap-4">
+          <div className="mt-2 grid gap-x-4 gap-y-2 lg:grid-cols-2">
             <div>
               <span className="font-semibold">Application URL</span>
               <input
@@ -251,7 +251,7 @@ function Submission() {
             <span className="mt-5 font-semibold">Description</span>
             <textarea
               className="w-full border border-gray-300 rounded-md mt-1 py-2 px-3"
-              rows={10}
+              rows={15}
               placeholder="Enter Description"
               onChange={(e) => {
                 setDescription(e.target.value);
