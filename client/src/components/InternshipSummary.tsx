@@ -25,7 +25,7 @@ function InternshipSummary({
   return (
     <div>
       <div
-        className={`hidden container px-8 pt-4 pb-7 border-b border-gray-200 lg:block xl:px-14 hover:cursor-pointerhover:bg-slate-100 ${
+        className={`hidden container px-8 pt-4 pb-7 border-b border-gray-200 lg:block xl:px-14 hover:cursor-pointer hover:bg-slate-100 ${
           selectedInternship._id === internship._id ? "bg-slate-100" : ""
         }`}
         onClick={() => setSelectedInternship(internship)}
