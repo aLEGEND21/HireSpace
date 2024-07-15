@@ -8,7 +8,11 @@ function Root() {
   const [internships, setInternships] = useState<any[]>([]);
   const [visibleInternships, setVisibleInternships] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filterQuery, setFilterQuery] = useState("");
+  const [tagQuery, setTagQuery] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [hourlyRate, setHourlyRate] = useState([0, 100]);
+  const [hoursPerWeek, setHoursPerWeek] = useState([0, 40]);
   const [selectedInternship, setSelectedInternship] = useState<any | null>(
     null
   );
@@ -54,26 +58,65 @@ function Root() {
     }
 
     // Further filter the results by tags
-    if (filterQuery) {
+    if (tagQuery) {
       filteredInternships = filteredInternships.filter((internship) => {
         return internship.tags
           .join(" ")
           .toLowerCase()
-          .includes(filterQuery.toLowerCase());
+          .includes(tagQuery.toLowerCase());
       });
     }
 
+    // Further filter the results by start and end date
+    if (startDate) {
+      filteredInternships = filteredInternships.filter((internship) => {
+        return new Date(internship.startDate) >= new Date(startDate);
+      });
+    }
+    if (endDate) {
+      filteredInternships = filteredInternships.filter((internship) => {
+        return new Date(internship.endDate) <= new Date(endDate);
+      });
+    }
+
+    // Further filter the results by hourly rate and hours per week
+    filteredInternships = filteredInternships.filter((internship) => {
+      return (
+        internship.hourlyRate >= hourlyRate[0] &&
+        internship.hourlyRate <= hourlyRate[1] &&
+        internship.hoursPerWeek >= hoursPerWeek[0] &&
+        internship.hoursPerWeek <= hoursPerWeek[1]
+      );
+    });
+
     setVisibleInternships(filteredInternships);
     setSelectedInternship(filteredInternships[0] || null);
-  }, [internships, searchQuery, filterQuery]);
+  }, [
+    internships,
+    searchQuery,
+    tagQuery,
+    startDate,
+    endDate,
+    hourlyRate,
+    hoursPerWeek,
+  ]);
 
   return (
     <div className="flex flex-col max-h-screen">
       <Navbar
         searchBox={
           <SearchBox
+            tagQuery={tagQuery}
+            startDate={startDate}
+            endDate={endDate}
+            hourlyRate={hourlyRate}
+            hoursPerWeek={hoursPerWeek}
             setSearchQuery={setSearchQuery}
-            setFilterQuery={setFilterQuery}
+            setTagQuery={setTagQuery}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            setHourlyRate={setHourlyRate}
+            setHoursPerWeek={setHoursPerWeek}
           />
         }
       />
@@ -81,8 +124,17 @@ function Root() {
         {/* Small screen page contents */}
         <div className="lg:hidden w-lvw pt-5">
           <SearchBox
+            tagQuery={tagQuery}
+            startDate={startDate}
+            endDate={endDate}
+            hourlyRate={hourlyRate}
+            hoursPerWeek={hoursPerWeek}
             setSearchQuery={setSearchQuery}
-            setFilterQuery={setFilterQuery}
+            setTagQuery={setTagQuery}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            setHourlyRate={setHourlyRate}
+            setHoursPerWeek={setHoursPerWeek}
           />
           <p className="text-gray-600 mt-4 mb-1 text-center">
             Found {visibleInternships.length} relevant internships

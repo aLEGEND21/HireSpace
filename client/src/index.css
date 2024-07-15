@@ -6,3 +6,8 @@
 .placeholder-bold::placeholder {
     font-weight: 600;
 }
+
+/* Center the input number text within the input for Ant Design InputNumber elements */
+.inputNumberCentered .ant-input-number-input {
+    text-align: center;
+}

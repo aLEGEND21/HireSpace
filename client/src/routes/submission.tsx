@@ -4,9 +4,8 @@ import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
 import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
+import { MAX_TAGS } from "../constants";
 import tagOptions from "../tags";
-
-const MAX_TAGS = 2;
 
 function Submission() {
   const navigate = useNavigate();
