@@ -22,6 +22,16 @@ function Register() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    // Ensure all fields are filled in
+    if (
+      username === "" ||
+      email === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      return toast.error("Please fill in all fields");
+    }
+
     // Validate the password
     if (password !== confirmPassword) {
       return toast.error("Passwords do not match");
