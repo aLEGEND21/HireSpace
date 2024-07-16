@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Select from "react-select";
 import { InputNumber, Slider } from "antd";
-import tagOptions from "../tags";
+import { TAGS } from "../constants";
 
 interface SearchBoxProps {
   tagQuery: string;
@@ -108,7 +108,7 @@ function SearchBox({
               <div>
                 <span className="font-semibold">Tag</span>
                 <Select
-                  options={tagOptions.map((tag) => ({
+                  options={TAGS.map((tag) => ({
                     value: tag,
                     label: tag,
                   }))}

@@ -4,8 +4,7 @@ import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
 import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
-import { MAX_TAGS } from "../constants";
-import tagOptions from "../tags";
+import { MAX_TAGS, TAGS } from "../constants";
 
 function Submission() {
   const navigate = useNavigate();
@@ -229,7 +228,7 @@ function Submission() {
               <span className="font-semibold">Tags</span>
               <Select
                 isMulti
-                options={tagOptions.map((tag) => ({ value: tag, label: tag }))}
+                options={TAGS.map((tag) => ({ value: tag, label: tag }))}
                 className="block w-full rounded-md mt-1"
                 classNames={{
                   control: () => {
