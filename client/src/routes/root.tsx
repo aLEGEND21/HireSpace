@@ -137,7 +137,8 @@ function Root() {
             setHoursPerWeek={setHoursPerWeek}
           />
           <p className="text-gray-600 mt-4 mb-1 text-center">
-            Found {visibleInternships.length} relevant internships
+            Found {visibleInternships.length} relevant internship
+            {visibleInternships.length !== 1 && "s"}
           </p>
           <div className="divide-y">
             {visibleInternships.map((internship) => (
@@ -153,7 +154,8 @@ function Root() {
         {/* Large screen sidebar */}
         <div className="hidden col-span-3 border overflow-y-auto lg:block">
           <p className="text-gray-600 my-5 ps-8 xl:ps-14">
-            Found {visibleInternships.length} relevant internships
+            Found {visibleInternships.length} relevant internship
+            {visibleInternships.length !== 1 && "s"}
           </p>
           {visibleInternships.map((internship) => (
             <InternshipSummary

@@ -57,7 +57,8 @@ function PendingApproval() {
           Internships Pending Approval
         </h1>
         <p className="text-center text-gray-600 mt-2">
-          Showing {internships.length} internships
+          Showing {internships.length} internship
+          {internships.length !== 1 && "s"}
         </p>
         {internships.length === 0 && (
           <p className="text-xl text-center text-gray-600 mt-5">
