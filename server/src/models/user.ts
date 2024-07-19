@@ -6,7 +6,8 @@ interface IUser {
     salt: string;
     email: string;
     roles: string[];
-    internships: mongoose.Types.ObjectId[];
+    submittedInternships: mongoose.Types.ObjectId[];
+    bookmarkedInternships: mongoose.Types.ObjectId[];
 }
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -15,7 +16,8 @@ const userSchema = new mongoose.Schema<IUser>({
     salt: { type: String, required: true },
     email: { type: String, required: true },
     roles: { type: [String], required: true },
-    internships: { type: [mongoose.Schema.Types.ObjectId], required: true },
+    submittedInternships: { type: [mongoose.Schema.Types.ObjectId], required: true },
+    bookmarkedInternships: { type: [mongoose.Schema.Types.ObjectId], required: true },
 }, { timestamps: true });
 
 const User = mongoose.model<IUser>('User', userSchema);

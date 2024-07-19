@@ -1,20 +1,25 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useContext, useState, useEffect } from "react";
 import Fuse from "fuse.js";
+import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
 import InternshipSummary from "../components/InternshipSummary";
 import SearchBox from "../components/SearchBox";
 
 function Root() {
+  const session = useContext(SessionContext);
   const [internships, setInternships] = useState<any[]>([]);
   const [visibleInternships, setVisibleInternships] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [tagQuery, setTagQuery] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [hourlyRate, setHourlyRate] = useState([0, 100]);
+  const [hourlyRate, setHourlyRate] = useState([0, 50]);
   const [hoursPerWeek, setHoursPerWeek] = useState([0, 40]);
   const [selectedInternship, setSelectedInternship] = useState<any | null>(
     null
+  );
+  const [bookmarkedInternships, setBookmarkedInternships] = useState<string[]>(
+    []
   );
 
   // Format the date string for when the selected internship was posted
@@ -26,6 +31,7 @@ function Root() {
   const datePosted = new Date(selectedInternship?.createdAt);
   const datePostedString = datePosted.toLocaleDateString(undefined, fmtOptions);
 
+  // Fetch all internships from the backend
   useEffect(() => {
     fetch("http://localhost:3000/internships", {
       credentials: "include",
@@ -41,6 +47,7 @@ function Root() {
     });
   }, []);
 
+  // Regenerate the search results when the search query or filters change
   useEffect(() => {
     let filteredInternships = internships;
 
@@ -101,6 +108,46 @@ function Root() {
     hoursPerWeek,
   ]);
 
+  // Fetch the bookmarked internships when the session changes
+  useEffect(() => {
+    if (session.loggedIn) {
+      fetch("http://localhost:3000/profile/bookmarks", {
+        credentials: "include",
+        mode: "cors",
+      }).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            setBookmarkedInternships(data.bookmarkedInternships);
+          });
+        }
+      });
+    }
+  }, [session]);
+
+  // Handle updating the user's bookmarked internships with the backend. This is called from the InternshipSummary component
+  const handleBookmarkUpdate = (
+    internshipId: string,
+    isBookmarked: boolean
+  ) => {
+    if (session.loggedIn) {
+      fetch("http://localhost:3000/profile/bookmarks", {
+        method: isBookmarked ? "DELETE" : "POST",
+        credentials: "include",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ internshipId }),
+      }).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            setBookmarkedInternships(data.bookmarkedInternships);
+          });
+        }
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col max-h-screen">
       <Navbar
@@ -147,13 +194,15 @@ function Root() {
                 internship={internship}
                 selectedInternship={selectedInternship}
                 setSelectedInternship={setSelectedInternship}
+                isBookmarked={bookmarkedInternships?.includes(internship._id)}
+                handleBookmarkUpdate={handleBookmarkUpdate}
               />
             ))}
           </div>
         </div>
         {/* Large screen sidebar */}
         <div className="hidden col-span-3 border overflow-y-auto lg:block">
-          <p className="text-gray-600 my-5 ps-8 xl:ps-14">
+          <p className="text-gray-600 my-5 ps-8 text-sm xl:text-base">
             Found {visibleInternships.length} relevant internship
             {visibleInternships.length !== 1 && "s"}
           </p>
@@ -163,6 +212,8 @@ function Root() {
               internship={internship}
               selectedInternship={selectedInternship}
               setSelectedInternship={setSelectedInternship}
+              isBookmarked={bookmarkedInternships?.includes(internship._id)}
+              handleBookmarkUpdate={handleBookmarkUpdate}
             />
           ))}
         </div>

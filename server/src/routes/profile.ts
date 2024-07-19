@@ -12,6 +12,52 @@ router.get('/profile/@me', async (req, res) => {
     }
 });
 
+router.get('/profile/bookmarks', async (req, res) => {
+    if (req.isAuthenticated()) { 
+        // @ts-ignore - _id always exists on the User object despite TypeScript not recognizing it
+        const user = await User.findOne({ _id: req.user._id });
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        res.status(200).send({ bookmarkedInternships: user.bookmarkedInternships });
+    } else {
+        res.status(401).send('Not authenticated');
+    }
+});
+
+router.post('/profile/bookmarks', async (req, res) => {
+    if (req.isAuthenticated()) {
+        // @ts-ignore - _id always exists on the User object despite TypeScript not recognizing it
+        const user = await User.findOne({ _id: req.user._id });
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // Add the bookmark
+        user.bookmarkedInternships.push(req.body.internshipId);
+        await user.save();
+
+        res.status(200).send({ bookmarkedInternships: user.bookmarkedInternships });
+    }
+});
+
+router.delete('/profile/bookmarks', async (req, res) => {
+    if (req.isAuthenticated()) {
+        // @ts-ignore - _id always exists on the User object despite TypeScript not recognizing it
+        const user = await User.findOne({ _id: req.user._id });
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // Remove the bookmark
+        user.bookmarkedInternships = user.bookmarkedInternships.filter((id) => id.toString() !== req.body.internshipId);
+        await user.save();
+
+        res.status(200).send({ bookmarkedInternships: user.bookmarkedInternships });
+    }
+});
+
 router.get('/profile/:id', async (req, res) => {
     const id = req.params.id;
 
