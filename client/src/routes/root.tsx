@@ -194,6 +194,8 @@ function Root() {
                 internship={internship}
                 selectedInternship={selectedInternship}
                 setSelectedInternship={setSelectedInternship}
+                tagQuery={tagQuery}
+                setTagQuery={setTagQuery}
                 isBookmarked={bookmarkedInternships?.includes(internship._id)}
                 handleBookmarkUpdate={handleBookmarkUpdate}
               />
@@ -212,6 +214,8 @@ function Root() {
               internship={internship}
               selectedInternship={selectedInternship}
               setSelectedInternship={setSelectedInternship}
+              tagQuery={tagQuery}
+              setTagQuery={setTagQuery}
               isBookmarked={bookmarkedInternships?.includes(internship._id)}
               handleBookmarkUpdate={handleBookmarkUpdate}
             />

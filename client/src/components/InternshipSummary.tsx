@@ -6,6 +6,8 @@ interface InternshipSummaryProps {
   internship: any;
   selectedInternship: any;
   setSelectedInternship: any;
+  tagQuery: any[];
+  setTagQuery: (tags: any[]) => void;
   isBookmarked: boolean;
   handleBookmarkUpdate: any;
 }
@@ -14,6 +16,8 @@ function InternshipSummary({
   internship,
   selectedInternship,
   setSelectedInternship,
+  tagQuery,
+  setTagQuery,
   isBookmarked,
   handleBookmarkUpdate,
 }: InternshipSummaryProps) {
@@ -30,6 +34,18 @@ function InternshipSummary({
   };
   const startDateString = startDate.toLocaleDateString(undefined, fmtOptions);
   const endDateString = endDate.toLocaleDateString(undefined, fmtOptions);
+
+  // Handle a tag being clicked
+  const handleTagClick = (event: any, tag: string) => {
+    event.preventDefault(); // Prevent the Link from firing on small screens. It doesn't matter if the div's onClick fires
+
+    // If the tag is already in the query, remove it. Otherwise, add it
+    if (tagQuery.some((t) => t.value === tag)) {
+      setTagQuery(tagQuery.filter((t) => t.value !== tag));
+    } else {
+      setTagQuery([...tagQuery, { label: tag, value: tag }]); // Structure as an object so react-select can parse it in SearchBox.tsx
+    }
+  };
 
   // Handle the bookmark button being clicked
   const handleBookmarkClick = (event: any) => {
@@ -92,7 +108,10 @@ function InternshipSummary({
           {internship.tags.map((tag: string) => (
             <span
               key={tag}
-              className="bg-primary text-white rounded-lg px-2.5 py-1.5 text-xs me-1 whitespace-nowrap xl:text-sm xl:px-3 xl:py-2"
+              className={`bg-primary text-white rounded-lg px-2.5 py-1.5 text-xs me-1 whitespace-nowrap xl:text-sm xl:px-3 xl:py-2 hover:opacity-90 ${
+                tagQuery.some((t) => t.value === tag) ? "font-semibold" : ""
+              }`}
+              onClick={(event) => handleTagClick(event, tag)}
             >
               # {tag}
             </span>
@@ -143,7 +162,10 @@ function InternshipSummary({
               {internship.tags.map((tag: string) => (
                 <span
                   key={tag}
-                  className="bg-primary text-white rounded-lg px-3 py-2 text-sm me-1 whitespace-nowrap"
+                  className={`bg-primary text-white rounded-lg px-3 py-2 text-sm me-1 whitespace-nowrap ${
+                    tagQuery.some((t) => t.value === tag) ? "font-semibold" : ""
+                  }`}
+                  onClick={(event) => handleTagClick(event, tag)}
                 >
                   # {tag}
                 </span>
