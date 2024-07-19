@@ -10,7 +10,7 @@ function Root() {
   const [internships, setInternships] = useState<any[]>([]);
   const [visibleInternships, setVisibleInternships] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [tagQuery, setTagQuery] = useState("");
+  const [tagQuery, setTagQuery] = useState<any[]>([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [hourlyRate, setHourlyRate] = useState([0, 50]);
@@ -66,11 +66,11 @@ function Root() {
 
     // Further filter the results by tags
     if (tagQuery) {
+      let parsedTagQuery = tagQuery.map((tag) => tag.value);
       filteredInternships = filteredInternships.filter((internship) => {
-        return internship.tags
-          .join(" ")
-          .toLowerCase()
-          .includes(tagQuery.toLowerCase());
+        return parsedTagQuery.every((value: string) =>
+          internship.tags.includes(value)
+        );
       });
     }
 

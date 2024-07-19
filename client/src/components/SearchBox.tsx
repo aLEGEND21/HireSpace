@@ -1,16 +1,16 @@
 import { useState } from "react";
 import Select from "react-select";
 import { InputNumber, Slider } from "antd";
-import { TAGS } from "../constants";
+import { MAX_TAGS, TAGS } from "../constants";
 
 interface SearchBoxProps {
-  tagQuery: string;
+  tagQuery: any[];
   startDate: string;
   endDate: string;
   hourlyRate: number[];
   hoursPerWeek: number[];
   setSearchQuery: (searchQuery: string) => void;
-  setTagQuery: (tagQuery: string) => void;
+  setTagQuery: (tagQuery: any[]) => void;
   setStartDate: (startDate: string) => void;
   setEndDate: (endDate: string) => void;
   setHourlyRate: (hourlyRate: number[]) => void;
@@ -34,7 +34,7 @@ function SearchBox({
 
   // Handle resetting the filters
   const handleResetFilters = () => {
-    setTagQuery("");
+    setTagQuery([]);
     setStartDate("");
     setEndDate("");
     setHourlyRate([0, 50]);
@@ -106,8 +106,9 @@ function SearchBox({
             </div>
             <div className="p-4 space-y-4">
               <div>
-                <span className="font-semibold">Tag</span>
+                <span className="font-semibold">Tags</span>
                 <Select
+                  isMulti
                   options={TAGS.map((tag) => ({
                     value: tag,
                     label: tag,
@@ -119,9 +120,12 @@ function SearchBox({
                     },
                   }}
                   onChange={(selected) => {
-                    setTagQuery(selected?.value || "");
+                    if (selected.length > MAX_TAGS) {
+                      return alert("You can only select up to 2 tags.");
+                    }
+                    setTagQuery([...selected]);
                   }}
-                  value={{ value: tagQuery, label: tagQuery }}
+                  value={tagQuery}
                 />
               </div>
               <div className="grid grid-cols-2 gap-x-4">
