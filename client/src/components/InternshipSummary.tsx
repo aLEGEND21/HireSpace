@@ -61,18 +61,20 @@ function InternshipSummary({
           >
             {/* Bookmark icon */}
             <svg
-              className={`w-6 h-6 text-primary fill-${
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className={`size-6 text-primary fill-${
                 isBookmarked ? "primary" : "transparent"
               }`}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 48 48"
             >
-              <title>Bookmark</title>
               <path
-                d="M37,43l-13-6l-13,6V9c0-2.2,1.8-4,4-4h18c2.2,0,4,1.8,4,4V43z"
-                stroke="currentColor"
-                strokeWidth="3"
-              ></path>
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+              />
             </svg>
           </button>
         </div>
@@ -108,18 +110,20 @@ function InternshipSummary({
             >
               {/* Bookmark icon */}
               <svg
-                className={`w-6 h-6 text-primary fill-${
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className={`size-6 text-primary fill-${
                   isBookmarked ? "primary" : "transparent"
                 }`}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 48 48"
               >
-                <title>Bookmark</title>
                 <path
-                  d="M37,43l-13-6l-13,6V9c0-2.2,1.8-4,4-4h18c2.2,0,4,1.8,4,4V43z"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                ></path>
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+                />
               </svg>
             </button>
           </div>
