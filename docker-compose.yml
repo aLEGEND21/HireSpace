@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+  hirespace.server:
+    container_name: hirepace.server
+    restart: always
+    build: ./server
+    networks:
+      - nginx-proxy
+    ports:
+      - "3002:3002"
+    environment:
+      - BACKEND_PORT=$BACKEND_PORT
+      - FRONTEND_URL=$FRONTEND_URL
+      - MONGODB_URI=$MONGODB_URI
+      - SECRET=$SECRET
+    command: npm run serve
+  
+  hirespace.client:
+    container_name: hirespace.client
+    restart: always
+    build: ./client
+    networks:
+      - nginx-proxy
+    ports:
+      - "3003:3003"
+    depends_on:
+      - hirespace.server
+    environment:
+      - VITE_API_URL=$VITE_API_URL
+    command: npm run serve
+
+networks:
+  nginx-proxy:
+    name: nginx-proxy # Used for reverse proxy across multiple services
+    external: true
