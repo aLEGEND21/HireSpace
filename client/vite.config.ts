@@ -8,5 +8,5 @@ const envPath = process.env.NODE_ENV === 'production' ? './' : '../'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  envDir: path.resolve(__dirname, envPath),
+  //envDir: path.resolve(__dirname, envPath),
 })
