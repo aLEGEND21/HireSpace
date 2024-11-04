@@ -2,7 +2,7 @@ version: '2'
 
 services:
   hirespace.server:
-    container_name: hirepace.server
+    container_name: hirespace.server
     restart: always
     build: ./server
     networks:
