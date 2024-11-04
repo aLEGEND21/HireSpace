@@ -34,45 +34,38 @@ function Approval() {
     }
   }, [session]);
 
+  // Fetch the internship data
   useEffect(() => {
-    fetch(`http://localhost:3000/internship/${id}`)
-      /*.then(async (res) => {
-        if (!res.ok) {
-          
-        } else {
-          return res.json();
-        }
-      })
-      .then((data) => {
-        setInternship(data);
-      });*/
-      .then(async (res) => {
+    fetch(`${import.meta.env.VITE_API_URL}/internship/${id}`).then(
+      async (res) => {
         if (res.ok) {
           const data = await res.json();
           setInternship(data);
         } else {
           toast.error("Failed to fetch internship data");
         }
-      });
+      }
+    );
   }, [id]);
 
+  // Fetch the creator data
   useEffect(() => {
     if (internship?.creator) {
-      fetch(`http://localhost:3000/profile/${internship.creator}`).then(
-        async (res) => {
-          if (res.ok) {
-            const data = await res.json();
-            setCreator(data);
-          } else {
-            toast.error("Failed to fetch internship creator data");
-          }
+      fetch(
+        `${import.meta.env.VITE_API_URL}/profile/${internship.creator}`
+      ).then(async (res) => {
+        if (res.ok) {
+          const data = await res.json();
+          setCreator(data);
+        } else {
+          toast.error("Failed to fetch internship creator data");
         }
-      );
+      });
     }
   }, [internship?.creator]);
 
   const handleApproval = () => {
-    fetch(`http://localhost:3000/internship/${id}/approve`, {
+    fetch(`${import.meta.env.VITE_API_URL}/internship/${id}/approve`, {
       method: "PATCH",
       credentials: "include",
     })
@@ -89,7 +82,7 @@ function Approval() {
   };
 
   const handleRejection = () => {
-    fetch(`http://localhost:3000/internship/${id}/reject`, {
+    fetch(`${import.meta.env.VITE_API_URL}/internship/${id}/reject`, {
       method: "DELETE",
       credentials: "include",
     })

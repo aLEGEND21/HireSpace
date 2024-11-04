@@ -7,7 +7,7 @@ function Logout() {
   const sessionDispatch = useContext(SessionDispatchContext);
 
   useEffect(() => {
-    fetch("http://localhost:3000/account/logout", {
+    fetch(`${import.meta.env.VITE_API_URL}/account/logout`, {
       credentials: "include",
       mode: "cors",
     }).then(() => {

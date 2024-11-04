@@ -60,7 +60,7 @@ function App() {
 
   // Refresh the session when the app loads
   useEffect(() => {
-    fetch("http://localhost:3000/profile/@me", {
+    fetch(`${import.meta.env.VITE_API_URL}/profile/@me`, {
       credentials: "include",
     })
       .then((res) => res.json())

@@ -69,7 +69,7 @@ function Submission() {
       return toast.error("Invalid application URL");
     }
 
-    fetch("http://localhost:3000/internship", {
+    fetch(`${import.meta.env.VITE_API_URL}/internship`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

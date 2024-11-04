@@ -24,7 +24,7 @@ function View() {
   );
 
   useEffect(() => {
-    fetch(`http://localhost:3000/internship/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/internship/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch internship data");
@@ -39,7 +39,7 @@ function View() {
 
   useEffect(() => {
     if (internship?.creator) {
-      fetch(`http://localhost:3000/profile/${internship.creator}`)
+      fetch(`${import.meta.env.VITE_API_URL}/profile/${internship.creator}`)
         .then((res) => {
           if (!res.ok) {
             throw new Error("Failed to fetch internship creator");

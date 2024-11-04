@@ -5,22 +5,28 @@ import passport from 'passport';
 import passportLocal from 'passport-local';
 import session from 'express-session';
 import cors from 'cors';
+import dotenv from 'dotenv';
+import path from 'path';
 import { json } from 'body-parser';
 import { accountRouter } from './routes/account';
 import { profileRouter } from './routes/profile';
 import { internshipRouter } from './routes/internship';
 import { User } from './models/user';
 
+// Load the .env file
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+
+// Configure passport's local strategy
 const LocalStrategy = passportLocal.Strategy;
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:5173', // Change this to the URL of your frontend
+  origin: process.env.FRONTEND_URL,
   credentials: true,
 }));
 app.use(json());
 app.use(session({
-  secret: 'secret', // Change this to a random string
+  secret: process.env.SECRET || '',
   resave: false,
   saveUninitialized: false
 }));
@@ -58,12 +64,13 @@ passport.deserializeUser(async (id: string, done) => {
 });
 
 // Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/srip-hs-internship-finder');
+mongoose.connect(process.env.MONGODB_URI || '');
 mongoose.connection.on('connected', () => {
   console.log('[database] Connected to MongoDB');
 });
 
-app.listen(3000, () => {
-  console.log('[server] Listening on port 3000');
+let port = process.env.BACKEND_PORT || 3000;
+app.listen(port, () => {
+  console.log(`[server] Listening on port ${port}`);
 });
 

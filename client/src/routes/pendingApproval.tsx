@@ -19,7 +19,7 @@ function PendingApproval() {
 
   // Fetch the internships from the backend
   useEffect(() => {
-    fetch("http://localhost:3000/internships", {
+    fetch(`${import.meta.env.VITE_API_URL}/internships`, {
       credentials: "include",
       mode: "cors",
     }).then((res) => {
@@ -36,7 +36,7 @@ function PendingApproval() {
   // Fetch the users from the backend
   useEffect(() => {
     internships.forEach((internship) => {
-      fetch(`http://localhost:3000/profile/${internship.creator}`, {
+      fetch(`${import.meta.env.VITE_API_URL}/profile/${internship.creator}`, {
         credentials: "include",
         mode: "cors",
       }).then((res) => {

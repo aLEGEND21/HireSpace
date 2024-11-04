@@ -25,7 +25,7 @@ function Login() {
       return toast.error("Please fill in all fields");
     }
 
-    fetch("http://localhost:3000/account/login", {
+    fetch(`${import.meta.env.VITE_API_URL}/account/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

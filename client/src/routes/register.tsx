@@ -39,7 +39,7 @@ function Register() {
       return toast.error("Password must be at least 8 characters long");
     }
 
-    fetch("http://localhost:3000/account/register", {
+    fetch(`${import.meta.env.VITE_API_URL}/account/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

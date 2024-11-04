@@ -33,7 +33,7 @@ function Root() {
 
   // Fetch all internships from the backend
   useEffect(() => {
-    fetch("http://localhost:3000/internships", {
+    fetch(`${import.meta.env.VITE_API_URL}/internships`, {
       credentials: "include",
       mode: "cors",
     }).then((res) => {
@@ -111,7 +111,7 @@ function Root() {
   // Fetch the bookmarked internships when the session changes
   useEffect(() => {
     if (session.loggedIn) {
-      fetch("http://localhost:3000/profile/bookmarks", {
+      fetch(`${import.meta.env.VITE_API_URL}/profile/bookmarks`, {
         credentials: "include",
         mode: "cors",
       }).then((res) => {
@@ -130,7 +130,7 @@ function Root() {
     isBookmarked: boolean
   ) => {
     if (session.loggedIn) {
-      fetch("http://localhost:3000/profile/bookmarks", {
+      fetch(`${import.meta.env.VITE_API_URL}/profile/bookmarks`, {
         method: isBookmarked ? "DELETE" : "POST",
         credentials: "include",
         mode: "cors",
