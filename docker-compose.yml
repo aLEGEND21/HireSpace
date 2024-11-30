@@ -27,7 +27,7 @@ services:
     depends_on:
       - hirespace.server
     environment:
-      - VITE_API_URL=https://hirespace.greenapp.live/api
+      - VITE_API_URL: https://hirespace.greenapp.live/api
     command: npm run serve
 
 networks:
