@@ -60,6 +60,7 @@ function App() {
 
   // Refresh the session when the app loads
   console.log(import.meta.env);
+  console.log(process.env);
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/profile/@me`, {
       credentials: "include",
