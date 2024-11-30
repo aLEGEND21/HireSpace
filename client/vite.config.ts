@@ -8,9 +8,11 @@ import dotenv from 'dotenv'
 /* dotenv.config({ path: path.resolve(__dirname, '../.env') })
 console.log('NODE_ENV:', process.env.NODE_ENV)
 const envPath = "../" */
+dotenv.config();
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   //envDir: path.resolve(__dirname, envPath),
+  envDir: path.resolve(__dirname, '../'),
 })

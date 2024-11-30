@@ -26,6 +26,8 @@ services:
       - "3003:3003"
     depends_on:
       - hirespace.server
+    env_file:
+      - .env
     environment:
       - VITE_API_URL=$VITE_API_URL
     command: npm run serve
