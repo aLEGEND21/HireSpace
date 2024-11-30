@@ -12,6 +12,7 @@ import Submission from "./routes/submission";
 import Approval from "./routes/approval";
 import View from "./routes/view";
 import PendingApproval from "./routes/pendingApproval";
+import { API_URL } from "./constants";
 
 function App() {
   const router = createBrowserRouter([
@@ -59,10 +60,8 @@ function App() {
   });
 
   // Refresh the session when the app loads
-  console.log(import.meta.env);
-  console.log(process.env);
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/profile/@me`, {
+    fetch(`${API_URL}/profile/@me`, {
       credentials: "include",
     })
       .then((res) => res.json())
