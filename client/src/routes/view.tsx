@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { API_URL } from "../constants";
 
 function View() {
   const { id } = useParams<{ id: string }>();
@@ -24,7 +25,7 @@ function View() {
   );
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/internship/${id}`)
+    fetch(`${API_URL}/internship/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch internship data");
@@ -39,7 +40,7 @@ function View() {
 
   useEffect(() => {
     if (internship?.creator) {
-      fetch(`${import.meta.env.VITE_API_URL}/profile/${internship.creator}`)
+      fetch(`${API_URL}/profile/${internship.creator}`)
         .then((res) => {
           if (!res.ok) {
             throw new Error("Failed to fetch internship creator");

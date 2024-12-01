@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { SessionContext, SessionDispatchContext } from "../contexts";
 import Navbar from "../components/Navbar";
+import { API_URL } from "../constants";
 
 function Login() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function Login() {
       return toast.error("Please fill in all fields");
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/account/login`, {
+    fetch(`${API_URL}/account/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

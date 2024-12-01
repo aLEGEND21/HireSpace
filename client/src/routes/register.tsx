@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
+import { API_URL } from "../constants";
 
 function Register() {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ function Register() {
       return toast.error("Password must be at least 8 characters long");
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/account/register`, {
+    fetch(`${API_URL}/account/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

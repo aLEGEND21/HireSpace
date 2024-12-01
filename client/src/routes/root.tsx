@@ -4,6 +4,7 @@ import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
 import InternshipSummary from "../components/InternshipSummary";
 import SearchBox from "../components/SearchBox";
+import { API_URL } from "../constants";
 
 function Root() {
   const session = useContext(SessionContext);
@@ -33,7 +34,7 @@ function Root() {
 
   // Fetch all internships from the backend
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/internships`, {
+    fetch(`${API_URL}/internships`, {
       credentials: "include",
       mode: "cors",
     }).then((res) => {
@@ -111,7 +112,7 @@ function Root() {
   // Fetch the bookmarked internships when the session changes
   useEffect(() => {
     if (session.loggedIn) {
-      fetch(`${import.meta.env.VITE_API_URL}/profile/bookmarks`, {
+      fetch(`${API_URL}/profile/bookmarks`, {
         credentials: "include",
         mode: "cors",
       }).then((res) => {
@@ -130,7 +131,7 @@ function Root() {
     isBookmarked: boolean
   ) => {
     if (session.loggedIn) {
-      fetch(`${import.meta.env.VITE_API_URL}/profile/bookmarks`, {
+      fetch(`${API_URL}/profile/bookmarks`, {
         method: isBookmarked ? "DELETE" : "POST",
         credentials: "include",
         mode: "cors",

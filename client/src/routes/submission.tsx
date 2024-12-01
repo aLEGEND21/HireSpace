@@ -4,7 +4,7 @@ import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
 import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
-import { MAX_TAGS, TAGS } from "../constants";
+import { MAX_TAGS, TAGS, API_URL } from "../constants";
 
 function Submission() {
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ function Submission() {
       return toast.error("Invalid application URL");
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/internship`, {
+    fetch(`${API_URL}/internship`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

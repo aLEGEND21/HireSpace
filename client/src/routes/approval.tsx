@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
+import { API_URL } from "../constants";
 
 function Approval() {
   const navigate = useNavigate();
@@ -36,24 +37,20 @@ function Approval() {
 
   // Fetch the internship data
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/internship/${id}`).then(
-      async (res) => {
-        if (res.ok) {
-          const data = await res.json();
-          setInternship(data);
-        } else {
-          toast.error("Failed to fetch internship data");
-        }
+    fetch(`${API_URL}/internship/${id}`).then(async (res) => {
+      if (res.ok) {
+        const data = await res.json();
+        setInternship(data);
+      } else {
+        toast.error("Failed to fetch internship data");
       }
-    );
+    });
   }, [id]);
 
   // Fetch the creator data
   useEffect(() => {
     if (internship?.creator) {
-      fetch(
-        `${import.meta.env.VITE_API_URL}/profile/${internship.creator}`
-      ).then(async (res) => {
+      fetch(`${API_URL}/profile/${internship.creator}`).then(async (res) => {
         if (res.ok) {
           const data = await res.json();
           setCreator(data);
@@ -65,7 +62,7 @@ function Approval() {
   }, [internship?.creator]);
 
   const handleApproval = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/internship/${id}/approve`, {
+    fetch(`${API_URL}/internship/${id}/approve`, {
       method: "PATCH",
       credentials: "include",
     })
@@ -82,7 +79,7 @@ function Approval() {
   };
 
   const handleRejection = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/internship/${id}/reject`, {
+    fetch(`${API_URL}/internship/${id}/reject`, {
       method: "DELETE",
       credentials: "include",
     })

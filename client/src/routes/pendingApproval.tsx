@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SessionContext } from "../contexts";
 import Navbar from "../components/Navbar";
 import ApprovalSummary from "../components/ApprovalSummary";
+import { API_URL } from "../constants";
 
 function PendingApproval() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function PendingApproval() {
 
   // Fetch the internships from the backend
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/internships`, {
+    fetch(`${API_URL}/internships`, {
       credentials: "include",
       mode: "cors",
     }).then((res) => {
@@ -36,7 +37,7 @@ function PendingApproval() {
   // Fetch the users from the backend
   useEffect(() => {
     internships.forEach((internship) => {
-      fetch(`${import.meta.env.VITE_API_URL}/profile/${internship.creator}`, {
+      fetch(`${API_URL}/profile/${internship.creator}`, {
         credentials: "include",
         mode: "cors",
       }).then((res) => {
