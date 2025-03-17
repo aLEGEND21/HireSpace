@@ -30,7 +30,7 @@ let API_URL: string;
 if (process.env.NODE_ENV === "development") {
   API_URL = "http://localhost:3002";
 } else {
-  API_URL = "https://hirespace.greenapp.live/api";
+  API_URL = "https://hirespace.greenapp.tech/api";
 }
 
 export { MAX_TAGS, TAGS, API_URL };
