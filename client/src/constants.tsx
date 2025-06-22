@@ -28,7 +28,7 @@ const TAGS = [
 
 let API_URL: string;
 if (process.env.NODE_ENV === "development") {
-  API_URL = "http://localhost:3002";
+  API_URL = "http://localhost:3031";
 } else {
   API_URL = "https://hirespace.greenapp.tech/api";
 }

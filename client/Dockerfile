@@ -13,6 +13,6 @@ COPY . .
 # Build the app
 RUN npm run build
 
-EXPOSE 3003
+EXPOSE 3030
 
 CMD ["npm", "run", "serve"]

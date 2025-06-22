@@ -6,9 +6,9 @@ services:
     restart: always
     build: ./server
     networks:
-      - nginx-proxy
+      - nginx-proxy    
     ports:
-      - "3002:3002"
+      - "3031:3031"
     environment:
       - BACKEND_PORT=$BACKEND_PORT
       - FRONTEND_URL=$FRONTEND_URL
@@ -21,9 +21,9 @@ services:
     restart: always
     build: ./client
     networks:
-      - nginx-proxy
+      - nginx-proxy    
     ports:
-      - "3003:3003"
+      - "3030:3030"
     depends_on:
       - hirespace.server
     command: npm run serve

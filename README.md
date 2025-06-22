@@ -40,7 +40,7 @@ cd ../client
 npm run dev
 ```
 
-4. Open your web browser and navigate to `http://localhost:5173` to view the application.
+4. Open your web browser and navigate to `http://localhost:3030` to view the application.
 
 ## License
 
